@@ -1,3 +1,7 @@
 body {
   background: pink;
 }
+
+.circle {
+ animation: wobble 3s 275ms infinite ease-in-out;
+}
