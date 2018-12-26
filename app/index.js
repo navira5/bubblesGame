@@ -8,28 +8,47 @@ class App extends React.Component {
 constructor(props) {
   super(props);
   this.state = {
-    x : 200,
+    x : 100,
     y : 200,
     score: 0,
-    velX : 5,
-    velY : 2,
-    ballPosX : 100,
-    ballPosY : 50,
-    radius : 10,
+    radius : 30,
+    circles: [],
+    intervalId: null
   };
   this.moveIt = this.moveIt.bind(this);
   this.handleMouseMove = this.handleMouseMove.bind(this);
   this.handleCatchCircle = this.handleCatchCircle.bind(this);
-  this.animate = this.animate.bind(this);
 }
 
-moveIt() {
+componentDidMount() {
+    var intervalId = setInterval(this.moveIt, 500);
+    // store intervalId in the state so it can be accessed later:
+    this.setState({
+      intervalId: intervalId
+    });
+  }
 
-  setInterval(this.setState({
-      y: this.state.y + 100
-    }), 2000)
+  componentWillUnmount() {
+    // use intervalId from the state to clear the interval
+    clearInterval(this.state.intervalId);
+  }
+
+  moveIt() {
+    // setState method is used to update the state
+    this.setState({
+      x: this.state.x - 10,
+      y: this.state.y - 20
+    });
+  }
+
+
+// moveIt() {
+
+//   setInterval(this.setState({
+//       y: this.state.y + 100
+//     }), 2000)
     
-  };
+//   };
 
   handleMouseMove(e) {
     const x = e.clientX;
@@ -40,32 +59,13 @@ moveIt() {
     });
   }
 
-  componentWillMount() {
-    setInterval(this.animate, 50);
-  }
-
   handleCatchCircle(e) {
     this.setState({
       score: this.state.score + 1
     });
   }
 
-  animate() {
-      // draw ball at ballPosX, ballPosY coordinates
-      // ctx.arc(ballPosX, ballPosY, radius, 0, Math.PI * 180, false)
-      // // fill in colours etc
-
-      // // move ball
-      // ballPosX += velX;
-      // ballPosY += velY;
-
-      // // do boundary detection for bounce
-      // if (ballPosX + radius > ctx.width || ballPosX - radius < 0) {
-      //   // change velX to negative to bounce the ball the oposite X direction
-      //   velX *= -1;
-      // }
-  }
-
+  
   render() {
 
     
@@ -75,7 +75,8 @@ moveIt() {
         <div>
                 Hello! I'm Bubbilicious. Pop me!
                 Score: {this.state.score}
-                <div className = "background-wrap" >
+          
+                {/* <div className = "background-wrap" onClick={this.handleCatchCircle}>
                   <div class= "bubble x1"> </div> 
                   <div class = "bubble x2"> </div> 
                   <div class = "bubble x3"> </div> 
@@ -86,8 +87,8 @@ moveIt() {
                   <div class = "bubble x8" > </div> 
                   <div class = "bubble x9"> </div> 
                   <div class = "bubble x10" > </div> 
-                </div>
-                {/* <div className="circle" >
+                </div> */}
+                <div className="circle" >
 
                 <svg className = "circle"
                 height = "1000"
@@ -101,20 +102,18 @@ moveIt() {
                      this.state.y
                    }
                    r = {
-                     45
+                     this.state.radius
                    }
                    strokeWidth = {
                      2.5
                    }
                    stroke = "#e74c3c"
                    fill = "#f1c40f"
-                   onClick = {
-                     this.moveIt
-                   }
+                   onClick={this.handleCatchCircle}
                    />
                 </svg>
-                 </div> */}
-              </div>
+                 </div> 
+        </div>
             )
   }
 }
