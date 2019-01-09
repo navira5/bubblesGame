@@ -1,10 +1,17 @@
-const React = require('react');
+import React from 'react';
 
-const Circle = (props) => {
-  return (
-    <div>Hello</div>
-  )
+class Circle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     
+    };
+  }
+
+  render() {
+
+   <div></div>
+  }
 }
-
 
 export default Circle;
