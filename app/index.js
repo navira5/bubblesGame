@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    //setInterval(this.addBubble, 2000);
+    //setInterval(this.addBubble, 5000);
   }
 
   addBubble() {
@@ -32,14 +32,18 @@ class App extends React.Component {
     })
   }
 
-  popBubble(index){
+  popBubble(index, bubbleClass){
+    
     var copy = [...this.state.bubbles]
     var filtered = copy.filter((item, i) => {
       return i !== index;
     })
 
+    var points = Number(bubbleClass[8])
+   
     this.setState({
-      bubbles: filtered
+      bubbles: filtered,
+      score: this.state.score + points
     })
 
   }
@@ -54,7 +58,7 @@ class App extends React.Component {
         Score: {this.state.score}
         <div className="background-wrap" >
           {this.state.bubbles.map((bubble, i) => {
-            return <div onClick={() => this.popBubble(i)} className={bubble}></div>;
+            return <div onClick={() => this.popBubble(i, bubble)} className={bubble}></div>;
           })}
         </div>
       </div>
