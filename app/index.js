@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    //setInterval(this.addBubble, 5000);
+    //setInterval(this.addBubble, 2000);
   }
 
   addBubble() {
