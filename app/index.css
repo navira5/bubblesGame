@@ -92,9 +92,9 @@ body {
   left: -5%;
   top: 5%;
 
-  -webkit-transform: scale(0.1);
-  -moz-transform: scale(0.1);
-  transform: scale(0.1);
+  -webkit-transform: scale(10);
+  -moz-transform: scale(10);
+  transform: scale(10);
 }
 
 .x9 {
@@ -105,9 +105,9 @@ body {
   left: 5%;
   top: 80%;
 
-  -webkit-transform: scale(0.2);
-  -moz-transform: scale(0.2);
-  transform: scale(0.2);
+  -webkit-transform: scale(20);
+  -moz-transform: scale(20);
+  transform: scale(20);
 }
 
 .x8 {
@@ -118,9 +118,9 @@ body {
   left: 10%;
   top: 40%;
 
-  -webkit-transform: scale(0.3);
-  -moz-transform: scale(0.3);
-  transform: scale(0.3);
+  -webkit-transform: scale(30);
+  -moz-transform: scale(30);
+  transform: scale(30);
 }
 
 .x7 {
@@ -131,9 +131,9 @@ body {
   left: 20%;
   top: 0;
 
-  -webkit-transform: scale(0.4);
-  -moz-transform: scale(0.4);
-  transform: scale(0.4);
+  -webkit-transform: scale(40);
+  -moz-transform: scale(40);
+  transform: scale(40);
 }
 
 .x6 {
@@ -144,9 +144,9 @@ body {
   left: 30%;
   top: 50%;
 
-  -webkit-transform: scale(0.5);
-  -moz-transform: scale(0.5);
-  transform: scale(0.5);
+  -webkit-transform: scale(50);
+  -moz-transform: scale(50);
+  transform: scale(50);
 }
 
 .x5 {
@@ -157,9 +157,9 @@ body {
   left: 50%;
   top: 0;
 
-  -webkit-transform: scale(0.6);
-  -moz-transform: scale(0.6);
-  transform: scale(0.6);
+  -webkit-transform: scale(60);
+  -moz-transform: scale(60);
+  transform: scale(60);
 }
 
 .x4 {
@@ -170,9 +170,9 @@ body {
   left: 65%;
   top: 70%;
 
-  -webkit-transform: scale(0.7);
-  -moz-transform: scale(0.7);
-  transform: scale(0.7);
+  -webkit-transform: scale(70);
+  -moz-transform: scale(70);
+  transform: scale(70);
 }
 
 .x3 {
@@ -183,9 +183,9 @@ body {
   left: 80%;
   top: 10%;
 
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  transform: scale(0.8);
+  -webkit-transform: scale(80);
+  -moz-transform: scale(80);
+  transform: scale(80);
 }
 
 .x2 {
@@ -196,9 +196,9 @@ body {
   left: 90%;
   top: 50%;
 
-  -webkit-transform: scale(0.9);
-  -moz-transform: scale(0.9);
-  transform: scale(0.9);
+  -webkit-transform: scale(90);
+  -moz-transform: scale(90);
+  transform: scale(90);
 }
 
 .x1 {
@@ -209,9 +209,9 @@ body {
   left: 80%;
   top: 80%;
 
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  transform: scale(1);
+  -webkit-transform: scale(100);
+  -moz-transform: scale(100);
+  transform: scale(100);
 }
 
 /* OBJECTS */
@@ -220,19 +220,26 @@ body {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  
+
 
   -webkit-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
   -moz-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
 
-  -webkit-animation: animateBubble 15s linear infinite; /* Safari 4+ */
-  -moz-animation:    animateBubble 15s linear infinite; /* Fx 5+ */
-  animation:         animateBubble 15s linear infinite; /* IE 10+, Fx 29+ */
+  -webkit-animation: animateBubble 25s linear infinite; /* Safari 4+ */
+  -moz-animation:    animateBubble 25s linear infinite; /* Fx 5+ */
+  animation:         animateBubble 25s linear infinite; /* IE 10+, Fx 29+ */
 
-  height: 100px;
+  height: 1px;
   position: absolute;
-  width: 100px;
+  width: 1px;
+}
+
+.is-popping {
+  height: 0;
+  width: 0;
+  opacity: 0;
+  animation-name: none;
 }
 
 

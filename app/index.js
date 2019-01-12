@@ -7,7 +7,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       score: 0,
-      bubbles:[],
+      bubbles: [],
+      bubbleClass: 'bubble',
       bubbleClasses: ["bubble x1", "bubble x2", "bubble x3", "bubble x4", "bubble x5", "bubble x6", "bubble x7", "bubble x8", "bubble x9", "bubble x10"]
     };
     this.addBubble = this.addBubble.bind(this);
@@ -32,18 +33,19 @@ class App extends React.Component {
     })
   }
 
-  popBubble(index, bubbleClass){
-    
+  popBubble(index, bubbleClass) {
+
     var copy = [...this.state.bubbles]
     var filtered = copy.filter((item, i) => {
       return i !== index;
     })
 
     var points = Number(bubbleClass[8])
-   
+
     this.setState({
       bubbles: filtered,
-      score: this.state.score + points
+      score: this.state.score + points,
+      
     })
 
   }
@@ -58,16 +60,16 @@ class App extends React.Component {
         Score: {this.state.score}
         <div className="background-wrap" >
           {this.state.bubbles.map((bubble, i) => {
-            return <div onClick={() => this.popBubble(i, bubble)} className={bubble}></div>;
+            return <div key={i} onClick={() => this.popBubble(i, bubble)} className={bubble}></div>;
           })}
         </div>
       </div>
     )
   }
 }
-ReactDom.render(<App />, document.getElementById('app')); 
+ReactDom.render(<App />, document.getElementById('app'));
 
-/* 
+/*
 <div className="bubble x1"> </div>
 <div className="bubble x2"> </div>
 <div className="bubble x3"> </div>
