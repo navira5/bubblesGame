@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(this.resetCircle, 10000);
+    setInterval(this.resetCircle, 5000);
     this.createCircles();
   }
 
@@ -55,9 +55,10 @@ class App extends React.Component {
   }
 
   createCircles() {
-    var interval;
     if (this.state.circles.length < 100) {
-      setInterval(this.addCircle, 1000)
+      this.makeCircleInterval = setInterval(this.addCircle, 2000)
+    } else {
+      clearInterval(this.makeCircleInterval )
     }
   }
 
@@ -130,11 +131,12 @@ class App extends React.Component {
           <button onClick={this.toggleStart}>{startText}</button>
         </div>
        
-        <div className="slider">Speed
-          <input className="speed" type="range" min="10" max="10" value="100" onChange={this.setSpeed.bind(this)} value={this.state.speed}/>
+        <div className="slider">
+          <input className="speed" type="range" min="10" max="100" value="1" onChange={this.setSpeed.bind(this)} value={this.state.speed}/>
           <div className="speed-label"></div>
-        </div> 
+        </div>
 
+  
         <Stage width={window.innerWidth} height={window.innerHeight}>
           <Layer>
             <Text text="Pop the bubble" fontSize={15} />
