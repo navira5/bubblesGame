@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Konva from 'konva';
 import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/lab/Slider';
-
+// import PropTypes from 'prop-types';
+// import { withStyles } from '@material-ui/core/styles';
+// import Typography from '@material-ui/core/Typography';
+// import Slider from '@material-ui/lab/Slider';
+import { Slider } from 'reactrangeslider';
+import styles from './styles';
 require('./index.css');
 
 class App extends React.Component {
@@ -19,6 +20,10 @@ class App extends React.Component {
       radius: 20,
       start: false,
       speed: 40,
+      value: {
+        start: -50,
+        end: 50,
+      },
       circles: [
         { xPos: Math.floor(Math.random() * 790) + 20, yPos: -100, radius: Math.floor(Math.random() * 20) + 5 },
         { xPos: Math.floor(Math.random() * 790) + 20, yPos: -800, radius: Math.floor(Math.random() * 20) + 5 },
@@ -38,13 +43,17 @@ class App extends React.Component {
     this.addCircle = this.addCircle.bind(this);
     this.createCircles = this.createCircles.bind(this);
     this.startGameInterval= 0;
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    setInterval(this.resetCircle, 5000);
-    this.createCircles();
+    // setInterval(this.resetCircle, 5000);
+    // this.createCircles();
   }
 
+  onChange(value) {
+    this.setState({ value });
+  }
 
   setSpeed(value) {
     this.setState({
@@ -56,7 +65,7 @@ class App extends React.Component {
 
   createCircles() {
     if (this.state.circles.length < 100) {
-      this.makeCircleInterval = setInterval(this.addCircle, 2000)
+      this.makeCircleInterval = setInterval(this.addCircle, 1000)
     } else {
       clearInterval(this.makeCircleInterval )
     }
@@ -123,7 +132,9 @@ class App extends React.Component {
 
   render() {
     const { speed } = this.state.speed
+    const { value } = this.state;
     var startText = !this.state.start ? 'Start' : 'Pause'
+    console.log('new',this.state.value)
     return (
       <div>
         score: {this.state.score}
@@ -131,11 +142,17 @@ class App extends React.Component {
           <button onClick={this.toggleStart}>{startText}</button>
         </div>
        
-        <div className="slider">
-          <input className="speed" type="range" min="10" max="100" value="1" onChange={this.setSpeed.bind(this)} value={this.state.speed}/>
-          <div className="speed-label"></div>
-        </div>
-
+        <div style={styles.root}>
+          <div style={styles.sliderWrapper}>
+          <Slider
+            step={5}
+            value={value}
+            min={10}
+            max={100}
+            onChange={this.onChange}
+          />
+          </div>
+        </div>;
   
         <Stage width={window.innerWidth} height={window.innerHeight}>
           <Layer>
