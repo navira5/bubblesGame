@@ -3,7 +3,8 @@ import ReactDom from 'react-dom';
 import Konva from 'konva';
 import data from './data'
 import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
-import { setInterval } from 'timers';
+//import { setInterval } from 'timers';
+import Slider from 'react-rangeslider'
 require('./index.css');
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
       y: 0,
       radius: 20,
       start: false,
+      speed: 40,
       circles: [
         { xPos: Math.floor(Math.random() * 790) + 20, yPos: -100, radius: Math.floor(Math.random() * 20) + 5 },
         { xPos: Math.floor(Math.random() * 790) + 20, yPos: -800, radius: Math.floor(Math.random() * 20) + 5 },
@@ -33,45 +35,62 @@ class App extends React.Component {
     this.resetCircle = this.resetCircle.bind(this);
     this.addCircle = this.addCircle.bind(this);
     this.createCircles = this.createCircles.bind(this);
-    //this.stopPlay = this.stopPlay.bind(this);
-    this.startPlay = this.startPlay.bind(this);
+    this.startGameInterval= 0;
   }
 
   componentDidMount() {
-    //setInterval(this.moveCircle, 20);
+   
+    //setInterval(this.moveCircle, (1000/this.state.speed))
     //setInterval(this.resetCircle, 10000);
     //this.createCircles();
   }
+
+  componentWillUpdate() {
+    console.log(this.state.speed)
+    //setInterval(this.moveCircle, (1000 / this.state.speed))
+  }
+
+
+
 
   //stopPlay() {
     //console.log('inside stop play');
     //clearInterval(this.startGameInterval)
   //}
-  componentDidUpdate(prevProps,  prevState) {
-    if (this.state.start !== prevState.start) {
-      if (!this.state.start) {
-        console.log('inside stop play', this);
-        clearInterval(this.startGameInterval)
-      }
-    }
-  }
+  // componentDidUpdate(prevProps,  prevState) {
+  //   if (this.state.start !== prevState.start) {
+  //     if (!this.state.start) {
+  //       console.log('inside stop play', this);
+  //       clearInterval(this.startGameInterval)
+  //     }
+  //   }
+  // }
 
-  startPlay() {
-    console.log('inside start play');
-    
-    this.startGameInterval = setInterval(this.moveCircle, 50);
+  // startPlay() {
+
+  //   console.log('inside start play');
+  //   this.startGameInterval = setInterval(this.moveCircle, 50);
+  // }
+
+  setSpeed(e) {
+    this.setState({
+      speed: e.target.value
+    })
+
+    console.log('new speed', this.state.speed)
   }
 
   createCircles() {
     var interval;
     if (this.state.circles.length < 100) {
-      setInterval(this.addCircle, 5000)
+      setInterval(this.addCircle, 1000)
     }
   }
 
   moveCircle() {
     var copy = [...this.state.circles]
     var newCircles = copy.map(circle => {
+      //moving 1px per loop cycle
       circle.yPos++;
       return circle
     })
@@ -79,6 +98,7 @@ class App extends React.Component {
     this.setState({
       circles: newCircles
     })
+
   }
 
   resetCircle() {
@@ -90,7 +110,6 @@ class App extends React.Component {
       circles: resetMissedBubbles,
     })
 
-    console.log(this.state.circles)
   }
 
   addCircle() {
@@ -100,16 +119,17 @@ class App extends React.Component {
   }
 
   toggleStart() {
-    console.log('fdfsdfds', this);
-    //clearInterval(this.startGameInterval)
-    //this.stopPlay()
     this.setState({
       start: !this.state.start
     }, () => {
+
+        //this.state.start ? this.startGameInterval = setInterval(this.moveCircle, 25) : null;
         if (this.state.start) {
-          this.startPlay();
+          console.log('game starts')
+          this.startGameInterval = setInterval(this.moveCircle, (1000/this.state.speed))
         } else {
-          //this.stopPlay();
+          console.log('game pauses')
+          clearInterval(this.startGameInterval)
         }
     });
   }
@@ -134,6 +154,11 @@ class App extends React.Component {
         score: {this.state.score}
         <div>
           <button onClick={this.toggleStart}>{startText}</button>
+        </div>
+
+        <div className="slider">Speed
+          <input className="speed" type="range" min="10" max="10" value="100" onChange={this.setSpeed.bind(this)} value={this.state.speed}/>
+          <div className="speed-label"></div>
         </div>
 
         <Stage width={window.innerWidth} height={window.innerHeight}>
