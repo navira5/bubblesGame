@@ -21,18 +21,22 @@ class App extends React.Component {
       radius: 20,
       start: false,
       speed: 10,
-      value: {
-        start: -50,
-        end: 50,
-      },
+
       circles: [
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -100, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -800, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -40, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -90, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -50, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: -10, radius: Math.floor(Math.random() * 20) + 5 },
-        { xPos: Math.floor(Math.random() * 790) + 20, yPos: 0, radius: Math.floor(Math.random() * 20) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, radius: Math.floor(Math.random() * 50) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: -800, radius: Math.floor(Math.random() * 50) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: -40, radius: Math.floor(Math.random() * 50) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: -90, radius: Math.floor(Math.random() * 50) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: -100, radius: Math.floor(Math.random() * 50) + 5 },
+        { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: -10, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: 0, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -100, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -800, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -40, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -90, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -50, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: -10, radius: Math.floor(Math.random() * 50) + 5 },
+        // { xPos: Math.floor(Math.random() * 790) + 55, yPos: 0, radius: Math.floor(Math.random() * 50) + 5 },
       ]
     }
 
@@ -43,68 +47,32 @@ class App extends React.Component {
     this.resetCircle = this.resetCircle.bind(this);
     this.addCircle = this.addCircle.bind(this);
     //this.createCircles = this.createCircles.bind(this);
-    this.startGameInterval= 0;
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    setInterval(this.resetCircle, 5000);
-   // this.createCircles();
-    
+    setInterval(this.resetCircle, 5000);    
+    console.log(window.innerWidth, 'width')
   }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.speed !== this.state.speed) {
-      // clearInterval(this.startGameInterval);
-      // this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
-    }
-
-    // if (prevProps.start !== this.state.start) {
-    //   if (this.state.start) {
-    //     this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
-    //   } else {
-    //     clearInterval(this.startGameInterval)
-    //   }
-    // }
-  }
-
-  // shouldComponentUpdate(nextProps, nextState){
-  //   if (prevProps.start !== this.state.start) {
-  //     if (this.state.start) {
-  //       this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
-  //     } else {
-  //       clearInterval(this.startGameInterval)
-  //     }
-  //   }
-  // }
-
-  // onChangeStart() {
-  //   this.setState({start: !this.state.start})
-  // }
 
   toggleStart() {
-    
     this.setState({
       start: !this.state.start
     }, () => {
       if (this.state.start) {
         this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
       } else {
-        console.log('jfhlsdkflksdjfkdsl', this);
-        
         clearInterval(this.startGameInterval)
       }
     });
   }
 
-
   onChange(value) {
     this.setState({ speed: value }, () => {
       clearInterval(this.startGameInterval);
-     if(this.state.start) {
+      if(this.state.start) {
        this.startGameInterval = setInterval(this.moveCircle, (1000 / value));
      }
-      
     })
   }
 
@@ -114,47 +82,40 @@ class App extends React.Component {
       circle.yPos++;
       return circle
     })
-
     this.setState({ circles: newCircles })
-
   }
 
   resetCircle() {
     var copy = [...this.state.circles]
     var resetMissedBubbles = copy.map(circle => {
-      return circle.yPos < 601 ? circle : { xPos: Math.floor(Math.random() * 590) + 20, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 20) + 5 }
+      return circle.yPos < 601 ? circle : { xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 50) + 5}
     })
     this.setState({
       circles: resetMissedBubbles,
     })
-
   }
 
   addCircle() {
     this.setState({
-      circles: this.state.circles.concat({ xPos: Math.floor(Math.random() * 590) + 20, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 20) + 5 })
+      circles: this.state.circles.concat({ xPos: Math.floor(Math.random() * window.innerWidth -100) + 100, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 50) + 5 })
+      // circles: this.state.circles.concat({ xPos: Math.floor(Math.random() * 790) + 55, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 50) + 5 })
     })
   }
 
   delete(e) {
-    e.target.destroy();
-
+    if (this.state.start) {
+      e.target.destroy();
+    }
     var newScore = this.state.score + 1
-
-    this.setState({
-      score: newScore
-    })
-
+    this.setState({ score: newScore })
     this.addCircle();
   }
-
-
 
   render() {
 
     return (
       <div>
-        score: {this.state.score}
+        Score: {this.state.score}
         <div>
           <Play toggleStart={this.toggleStart} startText={this.state.start} />
         </div>
@@ -169,13 +130,15 @@ class App extends React.Component {
             onChange={this.onChange}
           />
           </div>
-        </div>;
+        </div>
   
-        <Stage width={window.innerWidth} height={window.innerHeight}>
-          <Layer>
-            <Text text="Pop the bubble" fontSize={15} />
+        <Stage width={window.innerWidth} height={window.innerHeight} className="stage">
 
+          <Layer>
+            <Text fontSize={15} />
+            {console.log(window.innerHeight, window.innerWidth)}
             {
+             
               this.state.circles.map((item, i) => {
 
                 var newColor = 'red'

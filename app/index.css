@@ -13,7 +13,9 @@ body {
 
 /* KEYFRAMES */
 
-
+.stage {
+  border: 2px solid black;
+}
 
 @-webkit-keyframes animateBubble {
   100% {
@@ -235,12 +237,7 @@ body {
   width: 1px;
 }
 
-.is-popping {
-  height: 0;
-  width: 0;
-  opacity: 0;
-  animation-name: none;
-}
+
 
 
 
