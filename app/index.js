@@ -42,41 +42,75 @@ class App extends React.Component {
     this.moveCircle = this.moveCircle.bind(this);
     this.resetCircle = this.resetCircle.bind(this);
     this.addCircle = this.addCircle.bind(this);
-    this.createCircles = this.createCircles.bind(this);
+    //this.createCircles = this.createCircles.bind(this);
     this.startGameInterval= 0;
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
     setInterval(this.resetCircle, 5000);
-    this.createCircles();
+   // this.createCircles();
     
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.speed !== this.state.speed) {
-  //     clearInterval(this.startGameInterval);
-  //     this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+  componentDidUpdate(prevProps) {
+    if (prevProps.speed !== this.state.speed) {
+      // clearInterval(this.startGameInterval);
+      // this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+    }
+
+    // if (prevProps.start !== this.state.start) {
+    //   if (this.state.start) {
+    //     this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+    //   } else {
+    //     clearInterval(this.startGameInterval)
+    //   }
+    // }
+  }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   if (prevProps.start !== this.state.start) {
+  //     if (this.state.start) {
+  //       this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+  //     } else {
+  //       clearInterval(this.startGameInterval)
+  //     }
   //   }
   // }
 
-  onChange(value) {
-    this.setState({ speed: value })
-    console.log('speed onChange', this.state.speed)
+  // onChangeStart() {
+  //   this.setState({start: !this.state.start})
+  // }
+
+  toggleStart() {
+    
+    this.setState({
+      start: !this.state.start
+    }, () => {
+      if (this.state.start) {
+        this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+      } else {
+        console.log('jfhlsdkflksdjfkdsl', this);
+        
+        clearInterval(this.startGameInterval)
+      }
+    });
   }
 
-  createCircles() {
-    if (this.state.circles.length < 50) {
-      this.makeCircleInterval = setInterval(this.addCircle, 1000)
-    } else {
-      clearInterval(this.makeCircleInterval)
-    }
+
+  onChange(value) {
+    this.setState({ speed: value }, () => {
+      clearInterval(this.startGameInterval);
+     if(this.state.start) {
+       this.startGameInterval = setInterval(this.moveCircle, (1000 / value));
+     }
+      
+    })
   }
 
   moveCircle() {
     var copy = [...this.state.circles]
     var newCircles = copy.map(circle => {
-      //moving 1px per loop cycle
       circle.yPos++;
       return circle
     })
@@ -101,19 +135,6 @@ class App extends React.Component {
       circles: this.state.circles.concat({ xPos: Math.floor(Math.random() * 590) + 20, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 20) + 5 })
     })
   }
-
-  toggleStart() {
-    this.setState({
-      start: !this.state.start
-    }, () => {
-        if (this.state.start) {
-         this.startGameInterval = setInterval(this.moveCircle, (1000/this.state.speed))
-        } else {
-          clearInterval(this.startGameInterval)
-        }
-    });
-  }
-
 
   delete(e) {
     e.target.destroy();
