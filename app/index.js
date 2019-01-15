@@ -20,7 +20,7 @@ class App extends React.Component {
       y: 0,
       radius: 20,
       start: false,
-      speed: 50,
+      speed: 10,
       value: {
         start: -50,
         end: 50,
@@ -52,6 +52,13 @@ class App extends React.Component {
     this.createCircles();
     
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.speed !== this.state.speed) {
+  //     clearInterval(this.startGameInterval);
+  //     this.startGameInterval = setInterval(this.moveCircle, (1000 / this.state.speed))
+  //   }
+  // }
 
   onChange(value) {
     this.setState({ speed: value })
@@ -95,9 +102,6 @@ class App extends React.Component {
     })
   }
 
-
-
-
   toggleStart() {
     this.setState({
       start: !this.state.start
@@ -127,13 +131,11 @@ class App extends React.Component {
 
   render() {
 
-    var startText = !this.state.start ? 'Start' : 'Pause'
-
     return (
       <div>
         score: {this.state.score}
         <div>
-          <Play toggleStart={this.toggleStart} startText={this.state.start}/>
+          <Play toggleStart={this.toggleStart} startText={this.state.start} />
         </div>
        
         <div style={styles.root}>
