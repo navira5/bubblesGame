@@ -11,6 +11,10 @@ body {
   z-index: -1;
 }
 
+.app {
+  border: 2px solid blue;
+}
+
 /* KEYFRAMES */
 
 .stage {

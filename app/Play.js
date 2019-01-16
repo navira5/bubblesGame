@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Play = (props) => {
-  var text = !props.startText ? 'Start' : 'Pause';
+const Play = ({ toggleStart, startText }) => {
+  var text = !startText ? 'Start' : 'Pause';
 
-return (
+  return (
     <div>
-      <button onClick={props.toggleStart}>{text}</button>
+      <button onClick={toggleStart}>{text}</button>
     </div>
   )
 
