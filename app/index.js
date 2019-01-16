@@ -39,12 +39,12 @@ class App extends React.Component {
         10: 1
       },
       circles: [
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -50, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -60, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -90, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, yPos: -150, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -50, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -60, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -90, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
+        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -150, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
       ],
       divCircles: [{ yPos: 0 }, { yPos: 0 }, { yPos: 0 }, { yPos: 0 }, { yPos: 0 }]
     }
@@ -110,8 +110,8 @@ class App extends React.Component {
 
   resetCircle() {
     let resetMissedBubbles = [...this.state.circles].map(circle => {
-      return circle.yPos < 601 ? circle : 
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, 
+      return circle.yPos < 1000 ? circle : 
+        { xPos: Math.floor(Math.random() * (1200 - 50 + 1)) + 50, 
           yPos: Math.floor(Math.random() * -200) + (-10), 
           radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5 
         }
@@ -122,7 +122,7 @@ class App extends React.Component {
   addCircle() {
     this.setState({
       circles: this.state.circles.concat(
-        { xPos: Math.floor(Math.random() * (500 - 20 + 1)) + 20, 
+        { xPos: Math.floor(Math.random() * (1200 - 50 + 1)) + 50, 
           yPos: Math.floor(Math.random() * -200) + (-10), 
           radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5 
         }
@@ -139,43 +139,16 @@ class App extends React.Component {
 
     this.state.start ? e.target.destroy() : null;
   
-    var newScore = this.state.score + 1
-
-    this.setState({ score: scoreVal  })
+    this.setState({ score: this.state.score + scoreVal  })
 
     this.addCircle();
 
   }
 
-  // makeCircle() {
-
-  //   this.setState({ divCircles: this.state.divCircles.concat({ yPos: 0 })});
-
-  // }
-
-  // removeCircle(index) {
-  //   let afterRemove = [...this.state.divCircles].map((item, i) => {
-  //     return i !== index ? item : '';
-  //   })
-
-  //   this.setState({ divCircles: afterRemove})
-
-  // }
-
- 
-  // popCircle(index, point) {
-
-  //   this.removeCircle(index);
-
-  //   this.setState( { score: point})
-  // }
-
-  
-
 
   render() {
     const { start, speed, score, circles } = this.state;
-     
+     console.log(this.state.circles)
 
     return (
       <div>
