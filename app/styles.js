@@ -34,6 +34,7 @@ export default {
   },
   slider: {
     height: 40,
+  
   },
   trackStyle: {
     height: 5,

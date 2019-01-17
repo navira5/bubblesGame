@@ -1,11 +1,12 @@
 import React from 'react';
 
-const Play = ({ toggleStart, startText }) => {
+const Play = ({ toggleStart, startText, score }) => {
+  
   var text = !startText ? 'Start' : 'Pause';
 
   return (
-    <div>
-      <button onClick={toggleStart}>{text}</button>
+    <div >
+      <button onClick={toggleStart} className="play score">{text}  {score}</button>
     </div>
   )
 
