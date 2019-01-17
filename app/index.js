@@ -2,28 +2,33 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Konva from 'konva';
 import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
-import Portal from './Portal';
 import { Slider } from 'reactrangeslider';
 import styles from './styles';
 import Play from './Play';
-// import Bubble from './Bubble';
 require('./index.css');
+
+const xPositionRanges = {
+    min: 50,
+    max: 1100
+};
+
+const yPositionRanges = {
+    min: -50,
+    max: -200
+};
+
+const radiusRanges = {
+  min: 5,
+  max: 50
+}
+
 
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       score: 0,
-      x: {
-        min: 10,
-        max: 790
-      },
-      y: {
-        min: -20,
-        max: 610
-      },
       radius: null,
-      xPos: Math.floor(Math.random() * (790 - 10 + 1)) + 10,
       start: false,
       speed: 50,
       pointVal: {
@@ -39,14 +44,13 @@ class App extends React.Component {
         10: 1
       },
       circles: [
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -50, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -60, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -90, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -200, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-        { xPos: Math.floor(Math.random() * (1200 -50 + 1)) + 50, yPos: -150, radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5},
-      ],
-      divCircles: [{ yPos: 0 }, { yPos: 0 }, { yPos: 0 }, { yPos: 0 }, { yPos: 0 }]
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -200, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min},
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -50, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min },
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -60, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min },
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -90, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min },
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -200, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min },
+        { xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, yPos: -150, radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min },
+      ]
     }
 
 
@@ -56,9 +60,7 @@ class App extends React.Component {
     this.resetCircle = this.resetCircle.bind(this);
     this.addCircle = this.addCircle.bind(this);
     this.onChange = this.onChange.bind(this);
-    // this.removeCircle = this.removeCircle.bind(this);
-    // this.popCircle = this.popCircle.bind(this);
-    // this.makeCircle = this.makeCircle.bind(this);
+
   }
 
   componentDidMount() {
@@ -109,30 +111,39 @@ class App extends React.Component {
   }
 
   resetCircle() {
+  
     let resetMissedBubbles = [...this.state.circles].map(circle => {
+
       return circle.yPos < 1000 ? circle : 
-        { xPos: Math.floor(Math.random() * (1200 - 50 + 1)) + 50, 
-          yPos: Math.floor(Math.random() * -200) + (-10), 
-          radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5 
+        {
+          xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, 
+          yPos: Math.floor(Math.random() * (yPositionRanges.max - yPositionRanges.min + 1)) + yPositionRanges.min, 
+          radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min
         }
+
     })
+
     this.setState({ circles: resetMissedBubbles })
   }
 
   addCircle() {
+
     this.setState({
       circles: this.state.circles.concat(
-        { xPos: Math.floor(Math.random() * (1200 - 50 + 1)) + 50, 
-          yPos: Math.floor(Math.random() * -200) + (-10), 
-          radius: Math.floor(Math.random() * (50 - 5 + 1)) + 5 
+        {
+          xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min, 
+          yPos: Math.floor(Math.random() * (yPositionRanges.max - yPositionRanges.min + 1)) + yPositionRanges.min, 
+          radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min
         }
         )
-      // circles: this.state.circles.concat({ xPos: Math.floor(Math.random() * 790) + 55, yPos: Math.floor(Math.random() * -200) + (-10), radius: Math.floor(Math.random() * 50) + 5 })
     })
   }
 
+
+
   delete(e) {
 
+    //Calculate score based on radius size
     const radius = e.currentTarget.attrs.radius;
     const diameter = (radius * 2).toString()[0]
     const scoreVal = this.state.pointVal[diameter]
@@ -147,8 +158,8 @@ class App extends React.Component {
 
 
   render() {
+
     const { start, speed, score, circles } = this.state;
-     console.log(this.state.circles)
 
     return (
       <div>
@@ -173,12 +184,9 @@ class App extends React.Component {
           </div>
         </div>
 
-  
+        {/* Circles */}
           <Stage width={window.innerWidth-164} height={window.innerHeight} className="stage">
-
             <Layer>
-  
-              
               {
                 circles.map((item, i) => {
                   var newColor = 'red'
@@ -195,7 +203,6 @@ class App extends React.Component {
                       }}
                     />
                 })}
-
             </Layer>
           </Stage>
         </div>
