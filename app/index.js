@@ -7,20 +7,20 @@ import styles from './styles';
 import Play from './Play';
 require('./index.css');
 
-const xPositionRanges = {
-  min: 50,
-  max: 1100
-};
+// const xPositionRanges = {
+//   min: 50,
+//   max: 1100
+// };
 
-const yPositionRanges = {
-  min: -50,
-  max: -200
-};
+// const yPositionRanges = {
+//   min: -50,
+//   max: -200
+// };
 
-const radiusRanges = {
-  min: 5,
-  max: 50
-}
+// const radiusRanges = {
+//   min: 5,
+//   max: 50
+// }
 class App extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -28,6 +28,22 @@ class App extends React.Component {
       score: 0,
       start: false,
       speed: 50,
+
+      xPositionRanges: {
+        min: 50,
+        max: 1100
+      },
+
+      yPositionRanges: {
+        min: -50,
+        max: -200
+      },
+
+      radiusRanges: {
+        min: 5,
+        max: 50
+      },
+
       pointVal: {
         1: 10,
         2: 9,
@@ -98,6 +114,8 @@ class App extends React.Component {
 
   resetCircle() {
 
+    const { xPositionRanges, yPositionRanges, radiusRanges, colors } = this.state;
+
     let resetMissedBubbles = [...this.state.circles].map(circle => {
 
       return circle.yPos < 1000 ? circle :
@@ -105,7 +123,7 @@ class App extends React.Component {
           xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min,
           yPos: Math.floor(Math.random() * (yPositionRanges.max - yPositionRanges.min + 1)) + yPositionRanges.min,
           radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min,
-          color: this.state.colors[Math.floor(Math.random() * this.state.colors.length)]
+          color: colors[Math.floor(Math.random() * colors.length)]
         }
 
     })
@@ -115,13 +133,15 @@ class App extends React.Component {
 
   addCircle() {
 
+    const { xPositionRanges, yPositionRanges, radiusRanges, colors } = this.state;
+
     this.setState({
       circles: this.state.circles.concat(
         {
           xPos: Math.floor(Math.random() * (xPositionRanges.max - xPositionRanges.min + 1)) + xPositionRanges.min,
           yPos: Math.floor(Math.random() * (yPositionRanges.max - yPositionRanges.min + 1)) + yPositionRanges.min,
           radius: Math.floor(Math.random() * (radiusRanges.max - radiusRanges.min + 1)) + radiusRanges.min,
-          color: this.state.colors[Math.floor(Math.random() * this.state.colors.length)]
+          color: colors[Math.floor(Math.random() * colors.length)]
         }
       )
     })

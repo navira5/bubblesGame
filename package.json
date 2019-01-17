@@ -10,7 +10,8 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "npm run build && node server.js",
+    "start:dev": "webpack-dev-server --open",
     "build": "webpack --config webpack.prod.js"
   },
   "keywords": [],

@@ -30,8 +30,10 @@ body {
   cursor: pointer;
   color: black;
   border: none;
-  border-bottom: 1px solid #453886;
-  color: #453886;
+  /* border-bottom: 1px solid #453886;
+  color: #453886; */
+  border-bottom: 1px solid rgb(39, 113, 226);
+  color: #000000;
   padding-bottom: .25em;
   text-decoration: none;
   position: absolute;
@@ -54,6 +56,8 @@ body {
 .title {
   margin: 40px;
   font-size: 100px;
+  /* color:  #453886 */
+  color: #000000;
 }
 
 
